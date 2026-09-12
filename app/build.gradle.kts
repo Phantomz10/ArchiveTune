@@ -230,6 +230,7 @@ android {
             )
             buildConfigField("boolean", "LEAK_CANARY_TOGGLE_AVAILABLE", "true")
             buildConfigField("boolean", "IS_NIGHTLY_BUILD", "true")
+            buildConfigField("boolean", "UPDATER_AVAILABLE", "false")
             matchingFallbacks += listOf("release")
 
             val nightlyReleaseOwner =
