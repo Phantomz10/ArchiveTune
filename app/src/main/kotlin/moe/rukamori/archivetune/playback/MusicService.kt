@@ -173,6 +173,7 @@ import moe.rukamori.archivetune.constants.PauseListenHistoryKey
 import moe.rukamori.archivetune.constants.PauseOnDeviceMuteKey
 import moe.rukamori.archivetune.constants.PermanentShuffleKey
 import moe.rukamori.archivetune.constants.PersistentQueueKey
+import moe.rukamori.archivetune.constants.PreventDuplicateTracksInQueueKey
 import moe.rukamori.archivetune.constants.PlayerVolumeKey
 import moe.rukamori.archivetune.constants.RepeatModeKey
 import moe.rukamori.archivetune.constants.ScrobbleDelayPercentKey
@@ -4340,16 +4341,47 @@ class MusicService :
         }
     }
 
-    fun playNext(items: List<MediaItem>) {
+    /**
+     * Result of a request to insert item(s) into the playback queue via
+     * [playNext] or [addToQueue]. Used so callers (e.g. [PlayerConnection])
+     * know whether to surface a "can't add currently playing song" message.
+     */
+    enum class QueueAddResult {
+        /** Every item was added successfully (subject to duplicate handling). */
+        SUCCESS,
+
+        /** All items were skipped because they were the currently playing track. */
+        BLOCKED_CURRENT_TRACK,
+
+        /** Some items were added, but one or more were skipped because they were the currently playing track. */
+        PARTIAL_CURRENT_TRACK_BLOCKED,
+
+        /** Nothing was added (e.g. everything was filtered out for other reasons, or the list was empty). */
+        NONE_ADDED,
+    }
+
+    /**
+     * Removes any item(s) matching the currently playing media item from [items],
+     * since re-queuing the song that's already playing is a no-op that only
+     * confuses the user. Returns the filtered list alongside whether anything
+     * was actually removed.
+     */
+    private fun excludeCurrentlyPlaying(items: List<MediaItem>): Pair<List<MediaItem>, Boolean> {
+        val currentMediaId = player.currentMediaItem?.mediaId ?: return items to false
+        val filtered = items.filterNot { it.mediaId == currentMediaId }
+        return filtered to (filtered.size != items.size)
+    }
+
+    fun playNext(items: List<MediaItem>): QueueAddResult {
         val allowedItems =
             items
                 .filterBlockedArtists(blockedArtistIds)
                 .filterVideo(hideMusicVideos)
-        if (allowedItems.isEmpty()) return
+        if (allowedItems.isEmpty()) return QueueAddResult.NONE_ADDED
         val joined = togetherSessionState.value as? moe.rukamori.archivetune.together.TogetherSessionState.Joined
         if (joined?.role is moe.rukamori.archivetune.together.TogetherRole.Guest) {
             if (!joined.roomState.settings.allowGuestsToAddTracks) {
-                return
+                return QueueAddResult.NONE_ADDED
             }
             val tracks =
                 allowedItems.mapNotNull { it.metadata }.map { meta ->
@@ -4364,8 +4396,31 @@ class MusicService :
             tracks.asReversed().forEach { track ->
                 requestTogetherAddTrack(track, moe.rukamori.archivetune.together.AddTrackMode.PLAY_NEXT)
             }
-            return
+            return QueueAddResult.SUCCESS
         }
+
+        val (itemsExcludingCurrent, currentTrackBlocked) = excludeCurrentlyPlaying(allowedItems)
+        if (itemsExcludingCurrent.isEmpty()) {
+            return if (currentTrackBlocked) QueueAddResult.BLOCKED_CURRENT_TRACK else QueueAddResult.NONE_ADDED
+        }
+
+        if (dataStore.get(PreventDuplicateTracksInQueueKey, false)) {
+            val itemIds = itemsExcludingCurrent.map { it.mediaId }.toSet()
+            val indicesToRemove = mutableListOf<Int>()
+            val currentIndex = player.currentMediaItemIndex
+
+            for (i in 0 until player.mediaItemCount) {
+                if (i != currentIndex && player.getMediaItemAt(i).mediaId in itemIds) {
+                    indicesToRemove.add(i)
+                }
+            }
+
+            // Remove from highest index to lowest to maintain index stability
+            indicesToRemove.sortedDescending().forEach { index ->
+                player.removeMediaItem(index)
+            }
+        }
+
         suppressAutoPlayback = false
         val insertionIndex = if (player.mediaItemCount == 0) 0 else player.currentMediaItemIndex + 1
         val playNextShuffleOrder =
@@ -4373,15 +4428,17 @@ class MusicService :
                 buildPlayNextShuffleOrder(
                     currentIndex = player.currentMediaItemIndex,
                     insertionIndex = insertionIndex,
-                    insertionCount = allowedItems.size,
+                    insertionCount = itemsExcludingCurrent.size,
                 )
             } else {
                 null
             }
 
-        player.addMediaItems(insertionIndex, allowedItems)
+        player.addMediaItems(insertionIndex, itemsExcludingCurrent)
         playNextShuffleOrder?.let(localPlayer::setShuffleOrder)
         player.prepare()
+
+        return if (currentTrackBlocked) QueueAddResult.PARTIAL_CURRENT_TRACK_BLOCKED else QueueAddResult.SUCCESS
     }
 
     fun moveQueueItemToNext(mediaItemIndex: Int) {
@@ -4420,16 +4477,16 @@ class MusicService :
         }
     }
 
-    fun addToQueue(items: List<MediaItem>) {
+    fun addToQueue(items: List<MediaItem>): QueueAddResult {
         val allowedItems =
             items
                 .filterBlockedArtists(blockedArtistIds)
                 .filterVideo(hideMusicVideos)
-        if (allowedItems.isEmpty()) return
+        if (allowedItems.isEmpty()) return QueueAddResult.NONE_ADDED
         val joined = togetherSessionState.value as? moe.rukamori.archivetune.together.TogetherSessionState.Joined
         if (joined?.role is moe.rukamori.archivetune.together.TogetherRole.Guest) {
             if (!joined.roomState.settings.allowGuestsToAddTracks) {
-                return
+                return QueueAddResult.NONE_ADDED
             }
             val tracks =
                 allowedItems.mapNotNull { it.metadata }.map { meta ->
@@ -4444,11 +4501,36 @@ class MusicService :
             tracks.forEach { track ->
                 requestTogetherAddTrack(track, moe.rukamori.archivetune.together.AddTrackMode.ADD_TO_QUEUE)
             }
-            return
+            return QueueAddResult.SUCCESS
         }
+
+        val (itemsExcludingCurrent, currentTrackBlocked) = excludeCurrentlyPlaying(allowedItems)
+        if (itemsExcludingCurrent.isEmpty()) {
+            return if (currentTrackBlocked) QueueAddResult.BLOCKED_CURRENT_TRACK else QueueAddResult.NONE_ADDED
+        }
+
+        if (dataStore.get(PreventDuplicateTracksInQueueKey, false)) {
+            val itemIds = itemsExcludingCurrent.map { it.mediaId }.toSet()
+            val indicesToRemove = mutableListOf<Int>()
+            val currentIndex = player.currentMediaItemIndex
+
+            for (i in 0 until player.mediaItemCount) {
+                if (i != currentIndex && player.getMediaItemAt(i).mediaId in itemIds) {
+                    indicesToRemove.add(i)
+                }
+            }
+
+            // Remove from highest index to lowest to maintain index stability
+            indicesToRemove.sortedDescending().forEach { index ->
+                player.removeMediaItem(index)
+            }
+        }
+
         suppressAutoPlayback = false
-        player.addMediaItems(allowedItems)
+        player.addMediaItems(itemsExcludingCurrent)
         player.prepare()
+
+        return if (currentTrackBlocked) QueueAddResult.PARTIAL_CURRENT_TRACK_BLOCKED else QueueAddResult.SUCCESS
     }
 
     fun playFromVoiceSearch(query: String) {
