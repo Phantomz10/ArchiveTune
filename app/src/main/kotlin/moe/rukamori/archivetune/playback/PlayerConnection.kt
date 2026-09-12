@@ -8,6 +8,7 @@
 package moe.rukamori.archivetune.playback
 
 import android.content.Context
+import android.widget.Toast
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.PlaybackParameters
@@ -34,6 +35,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.withContext
+import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.db.MusicDatabase
 import moe.rukamori.archivetune.extensions.currentMetadata
 import moe.rukamori.archivetune.extensions.getCurrentQueueIndex
@@ -239,7 +241,12 @@ class PlayerConnection(
     fun playNext(item: MediaItem) = playNext(listOf(item))
 
     fun playNext(items: List<MediaItem>) {
-        service.playNext(items)
+        val result = service.playNext(items)
+        if (result == MusicService.QueueAddResult.BLOCKED_CURRENT_TRACK ||
+            result == MusicService.QueueAddResult.PARTIAL_CURRENT_TRACK_BLOCKED
+        ) {
+            Toast.makeText(context, R.string.cant_add_currently_playing_song, Toast.LENGTH_SHORT).show()
+        }
     }
 
     fun moveQueueItemToNext(mediaItemIndex: Int) {
@@ -249,7 +256,12 @@ class PlayerConnection(
     fun addToQueue(item: MediaItem) = addToQueue(listOf(item))
 
     fun addToQueue(items: List<MediaItem>) {
-        service.addToQueue(items)
+        val result = service.addToQueue(items)
+        if (result == MusicService.QueueAddResult.BLOCKED_CURRENT_TRACK ||
+            result == MusicService.QueueAddResult.PARTIAL_CURRENT_TRACK_BLOCKED
+        ) {
+            Toast.makeText(context, R.string.cant_add_currently_playing_song, Toast.LENGTH_SHORT).show()
+        }
     }
 
     fun playFromVoiceSearch(query: String) {
