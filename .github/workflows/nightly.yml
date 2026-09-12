@@ -49,6 +49,7 @@ jobs:
           echo "nightly_dir=$FOUND" >> "$GITHUB_OUTPUT"
 
       - name: Sign Nightly APK
+        id: sign_nightly
         uses: ilharp/sign-android-release@v2.0.0
         with:
           releaseDir: ${{ steps.nightly_dir.outputs.nightly_dir }}/
@@ -58,8 +59,23 @@ jobs:
           keyPassword: ${{ secrets.NIGHTLY_KEYSTORE_PASSWORD }}
           buildToolsVersion: 35.0.0
 
+      - name: Keep only the signed APK
+        id: clean_nightly
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR="${{ steps.nightly_dir.outputs.nightly_dir }}"
+          SIGNED="${{ steps.sign_nightly.outputs.signedFile }}"
+
+          FINAL="$DIR/ArchiveTune-nightly.apk"
+          mv "$SIGNED" "$FINAL"
+
+          find "$DIR" -maxdepth 1 -type f -name '*.apk' ! -path "$FINAL" -delete
+
+          echo "final_apk=$FINAL" >> "$GITHUB_OUTPUT"
+
       - name: Upload signed Nightly APK
         uses: actions/upload-artifact@v7
         with:
           name: ArchiveTune-nightly
-          path: ${{ steps.nightly_dir.outputs.nightly_dir }}/*.apk
+          path: ${{ steps.clean_nightly.outputs.final_apk }}
