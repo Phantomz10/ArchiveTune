@@ -56,7 +56,7 @@ internal enum class CanvasArtworkRefetchResult {
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class PlayerConnection(
-    context: Context,
+    private val context: Context,
     binder: MusicBinder,
     val database: MusicDatabase,
     scope: CoroutineScope,
