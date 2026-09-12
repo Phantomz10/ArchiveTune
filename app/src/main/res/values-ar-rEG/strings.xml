@@ -319,10 +319,7 @@
         <item quantity="one">ولا دقيقة</item>
         <item quantity="other">دقيقة واحدة</item>
     </plurals>
-    <string name="error_no_stream">مفيش أي بث متاح دلوقتي</string>
     <string name="error_no_internet">مفيش اتصال بالإنترنت</string>
-    <string name="error_timeout">الوقت خلص والاتصال قطع</string>
-    <string name="error_malformed_stream">في المشكلة أو خطأ في المصدر</string>
     <string name="error_unknown">حصل خطأ مش معروف</string>
     <string name="action_like">أعجبني</string>
     <string name="action_remove_like">شيل الإعجاب</string>
@@ -445,7 +442,7 @@
     <string name="adjust_radius">ظبط نص قطر الزاوية</string>
     <string name="custom_radius">تعديل نص قطر زاوية الصورة</string>
     <string name="archivetune_canvas">خلفية متحركة (ArchiveTune Canvas)</string>
-    <string name="archivetune_canvas_desc">تحريك غلاف الألبوم وقت التشغيل (بواسطة BetterLyrics)</string>
+    <string name="archivetune_canvas_desc">تحريك غلاف الألبوم وقت التشغيل</string>
     <string name="player_background_style_v8_v9_desc">مش متاح مع تصميم المشغل V8 و V9</string>
     <string name="show_button1_description">تبديل رؤية الزر 1 في حالة حضور Discord</string>
     <string name="show_button2_description">تبديل رؤية الزر 2 في حالة حضور Discord</string>
@@ -482,14 +479,6 @@
     <string name="action_login">تسجيل الدخول</string>
     <string name="login">تسجيل الدخول</string>
     <string name="not_logged_in">مش مسجل الدخول</string>
-    <string name="playback_confirmation_required">مطلوب تأكيد التشغيل</string>
-    <string name="playback_requires_youtube_music_confirmation">أكد التشغيل في يوتيوب ميوزك، وبعدين ارجع لـ ArchiveTune.</string>
-    <string name="playback_login_refresh_required">تحديث تسجيل دخول يوتيوب ميوزك</string>
-    <string name="playback_requires_youtube_music_login_refresh">جدد تسجيل الدخول في يوتيوب ميوزك، وبعدين ارجع لـ ArchiveTune.</string>
-    <string name="playback_error_code">الرمز</string>
-    <string name="playback_error_http">HTTP</string>
-    <string name="playback_error_message">الرسالة</string>
-    <string name="playback_error_cause">السبب</string>
     <string name="content_language">لغة المحتوى الافتراضية</string>
     <string name="content_country">بلد المحتوى الافتراضية</string>
     <string name="system_default">افتراضي النظام</string>
@@ -709,14 +698,6 @@
     <string name="discord_presence_do_not_disturb">الرجاء عدم الإزعاج</string>
     <string name="discord_presence_idle">خامل</string>
     <string name="discord_presence_streaming">بث مباشر</string>
-    <string name="discord_platform_desktop">كمبيوتر</string>
-    <string name="discord_platform_xbox">إكس بوكس</string>
-    <string name="discord_platform_samsung">سامسونج</string>
-    <string name="discord_platform_ios">iOS</string>
-    <string name="discord_platform_android">أندرويد</string>
-    <string name="discord_platform_embedded">مدمج</string>
-    <string name="discord_platform_ps4">بلاي ستيشن 4</string>
-    <string name="discord_platform_ps5">بلاي ستيشن 5</string>
     <string name="discord_activity_type_playing_label">شغال دلوقتي</string>
     <string name="discord_activity_type_streaming_label">بث مباشر</string>
     <string name="discord_activity_type_listening_label">يستمع</string>
@@ -725,7 +706,6 @@
     <string name="discord_image_album_artwork">غلاف الألبوم</string>
     <string name="discord_image_artist_artwork">صورة الفنان</string>
     <string name="activity_status">حالة النشاط</string>
-    <string name="platform_status">المنصة</string>
     <string name="translator_options">خيارات المترجم</string>
     <string name="enable_translator">تفعيل المترجم</string>
     <string name="enable_translator_desc">ترجمة الحقول المحددة قبل إرسالها لـ Discord Rich Presence</string>

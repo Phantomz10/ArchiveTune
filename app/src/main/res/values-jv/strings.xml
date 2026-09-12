@@ -171,10 +171,7 @@
     <plurals name="minute">
         <item quantity="other">%d menit</item>
     </plurals>
-    <string name="error_no_stream">Ora ana aliran yang tersedia</string>
     <string name="error_no_internet">Ora ana koneksi jaringan</string>
-    <string name="error_timeout">Timeout</string>
-    <string name="error_malformed_stream">Kesalahan sumber</string>
     <string name="error_unknown">Kesalahan tidak diketahui</string>
     <string name="action_like">Seneng</string>
     <string name="action_remove_like">Busak suka</string>
@@ -282,7 +279,7 @@
     <string name="brightness">Kecerahan</string>
     <string name="custom_value">Nilai khusus</string>
     <string name="archivetune_canvas">Kanvas ArchiveTune</string>
-    <string name="archivetune_canvas_desc">Menganimasikan sampul album saat diputer (Didukung oleh BetterLyrics)</string>
+    <string name="archivetune_canvas_desc">Menganimasikan sampul album saat diputer</string>
     <string name="show_button1_description">Alihkan visibilitas tombol 1 di Discord Rich Presence</string>
     <string name="show_button2_description">Alihkan visibilitas tombol 2 di Discord Rich Presence</string>
     <string name="discord_activity_type">Jenis aktivitas</string>
@@ -316,10 +313,6 @@
     <string name="action_login">Mlebu</string>
     <string name="login">Mlebu</string>
     <string name="not_logged_in">Belum Mlebu</string>
-    <string name="playback_confirmation_required">Konfirmasi pemutaran diperlukan</string>
-    <string name="playback_requires_youtube_music_confirmation">Konfirmasikan pemutaran di YouTube Music, lalu kembali ke ArchiveTune.</string>
-    <string name="playback_login_refresh_required">Segarkan login YouTube Music</string>
-    <string name="playback_requires_youtube_music_login_refresh">Segarkan login YouTube Music Kowe, lalu kembali ke ArchiveTune.</string>
     <string name="content_language">Bahasa konten default</string>
     <string name="content_country">Negara konten default</string>
     <string name="system_default">Bawaan sistem</string>
@@ -507,14 +500,6 @@
     <string name="discord_presence_do_not_disturb">Jangan Ganggu</string>
     <string name="discord_presence_idle">Idle</string>
     <string name="discord_presence_streaming">Streaming</string>
-    <string name="discord_platform_desktop">Desktop</string>
-    <string name="discord_platform_xbox">Xbox</string>
-    <string name="discord_platform_samsung">Samsung</string>
-    <string name="discord_platform_ios">iOS</string>
-    <string name="discord_platform_android">Android</string>
-    <string name="discord_platform_embedded">Embedded</string>
-    <string name="discord_platform_ps4">PS4</string>
-    <string name="discord_platform_ps5">PS5</string>
     <string name="discord_activity_type_playing_label">Playing</string>
     <string name="discord_activity_type_streaming_label">Streaming</string>
     <string name="discord_activity_type_listening_label">Listening</string>
@@ -523,7 +508,6 @@
     <string name="discord_image_album_artwork">Sampul Album</string>
     <string name="discord_image_artist_artwork">Sampul Artis</string>
     <string name="activity_status">Status Aktivitas</string>
-    <string name="platform_status">Platform</string>
     <string name="translator_options">Opsi Penerjemah</string>
     <string name="enable_translator">Aktifkan Penerjemah</string>
     <string name="enable_translator_desc">Terjemahkan bidang yang dipilih sebelum mengirim ke Discord RPC</string>

@@ -146,9 +146,7 @@
         <item quantity="one">1 minute</item>
         <item quantity="other">%d dakika</item>
     </plurals>
-    <string name="error_no_stream">Akış mevcut değil</string>
     <string name="error_no_internet">Ağ bağlantısı yok</string>
-    <string name="error_timeout">Zaman aşımı</string>
     <string name="error_unknown">Bilinmeyen hata</string>
     <string name="action_like">Beğen</string>
     <string name="action_remove_like">Beğeniyi kaldır</string>
@@ -386,7 +384,6 @@
     <string name="small_image">Küçük Resim</string>
     <string name="small_image_custom_url">Küçük resim özel URL\'si</string>
     <string name="activity_status">Etkinlik Durumu</string>
-    <string name="platform_status">platformu</string>
     <string name="translator_options">Çevirmen Seçenekleri</string>
     <string name="enable_translator">Çevirmeni Etkinleştir</string>
     <string name="enable_translator_desc">Seçilen alanları Discord RPC\'ye göndermeden önce çevirin</string>

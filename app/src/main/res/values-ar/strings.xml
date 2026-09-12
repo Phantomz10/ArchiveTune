@@ -182,9 +182,7 @@
         <item quantity="many">%d دقيقة</item>
         <item quantity="other">%d دقيقة</item>
     </plurals>
-    <string name="error_no_stream">لا يوجد بث متاح</string>
     <string name="error_no_internet">ليس هناك اتصال بالشبكة</string>
-    <string name="error_timeout">انتهت المهلة</string>
     <string name="error_unknown">خطأ غير معروف</string>
     <string name="action_like">أعجبني</string>
     <string name="action_remove_like">مسح الإعجاب</string>
@@ -424,7 +422,6 @@
     <string name="small_image">صورة صغيرة</string>
     <string name="small_image_custom_url">رابط مخصص للصورة الصغيرة</string>
     <string name="activity_status">حالة النشاط</string>
-    <string name="platform_status">المنصة</string>
     <string name="translator_options">خيارات المترجم</string>
     <string name="enable_translator">تفعيل المترجم</string>
     <string name="enable_translator_desc">ترجمة العناصر المحددة قبل إرسالها إلى Discord RPC</string>
@@ -476,7 +473,6 @@
     <string name="music_recognition">التعرف على الموسيقى</string>
     <string name="pin_to_speed_dial">التثبيت إلى قائمة الوصول السريع</string>
     <string name="remove_from_speed_dial">الإزالة من قائمة الوصول السريع</string>
-    <string name="playback_requires_youtube_music_confirmation">تأكد من تشغيل المقطع في YouTube Music ثم عد إلى ArchiveTune.</string>
     <string name="wakelock">إبقاء المعالج نشطًا أثناء التشغيل</string>
     <string name="wakelock_desc">يمنع النظام من مقاطعة تشغيل الموسيقى عبر إبقاء المعالج في حالة نشطة</string>
     <string name="external_downloader">برنامج تنزيل خارجي</string>
@@ -490,9 +486,6 @@
     <string name="no_matching_playlists">لم يتم العثور على قائمة تشغيل متطابقة</string>
     <string name="blur_intensity">مستوى التمويه</string>
     <string name="blur_intensity_value">%1$d dp</string>
-    <string name="playback_confirmation_required">يُلزم تأكيد المشغل</string>
-    <string name="playback_login_refresh_required">تحديث تسجيل الدخول إلى YouTube Music</string>
-    <string name="playback_requires_youtube_music_login_refresh">قم بتحديث بيانات تسجيل الدخول الخاصة بك على YouTube Music، ثم عد إلى ArchiveTune.</string>
     <string name="top_results">أفضل النتائج</string>
     <string name="most_played_badge">الأكثر تشغيلًا</string>
     <string name="play_all">تشغيل الكل</string>
@@ -645,7 +638,6 @@
     <string name="unsupported_language">اللغة غير مدعومة: %1$s</string>
     <string name="source">المصدر</string>
     <string name="lyrics_word_sync">مزامنة الكلمات</string>
-    <string name="error_malformed_stream">خطأ في المصدر</string>
     <string name="app_icon_description">اختر أيقونة المشغل</string>
     <string name="app_icon_default">الافتراضي</string>
     <string name="app_icon_subtitle">تخصيص المشغل الخاص بك</string>
@@ -690,7 +682,7 @@
     <string name="custom_background_permission_error">تعذر على ArchiveTune الاحتفاظ بصلاحية الوصول لهذه الصورة.</string>
     <string name="custom_background_permission_cleanup_error">تعذر تحرير صلاحية الوصول للصورة السابقة.</string>
     <string name="archivetune_canvas">شاشة ArchiveTune التفاعلية</string>
-    <string name="archivetune_canvas_desc">تحريك غلاف الألبوم أثناء التشغيل (مدعوم بواسطة BetterLyrics)</string>
+    <string name="archivetune_canvas_desc">تحريك غلاف الألبوم أثناء التشغيل</string>
     <string name="player_background_style_v8_v9_desc">غير متاح مع نمطي المشغل V8 و V9</string>
     <string name="disable_animations">تعطيل الرسوم المتحركة</string>
     <string name="disable_animations_desc">تعطيل معظم الرسوم المتحركة في التطبيق. موصى به للأجهزة ضعيفة الإمكانيات</string>
@@ -707,10 +699,6 @@
     <string name="lyrics_mode_v2">V2 القديم</string>
     <string name="lyrics_mode_enhanced">محسّن</string>
     <string name="lyrics_animation_style_v2_only">متاح فقط في وضع الكلمات V2</string>
-    <string name="playback_error_code">الرمز</string>
-    <string name="playback_error_http">HTTP</string>
-    <string name="playback_error_message">الرسالة</string>
-    <string name="playback_error_cause">السبب</string>
     <string name="internet">الإنترنت</string>
     <string name="internet_warning_title">تحذير الأمان والاستخدام</string>
     <string name="internet_warning_doh">يعمل DNS over HTTPS فقط إذا كان بلدك يحظر YouTube. إذا كان YouTube يحظر منطقتك نشطًا، ففكر في استخدام بروكسي أو VPN.</string>
@@ -854,14 +842,6 @@
     <string name="discord_presence_do_not_disturb">عدم الإزعاج</string>
     <string name="discord_presence_idle">خامل</string>
     <string name="discord_presence_streaming">بث مباشر</string>
-    <string name="discord_platform_desktop">سطح المكتب</string>
-    <string name="discord_platform_xbox">Xbox</string>
-    <string name="discord_platform_samsung">Samsung</string>
-    <string name="discord_platform_ios">iOS</string>
-    <string name="discord_platform_android">Android</string>
-    <string name="discord_platform_embedded">مدمج</string>
-    <string name="discord_platform_ps4">PS4</string>
-    <string name="discord_platform_ps5">PS5</string>
     <string name="discord_activity_type_playing_label">يلعب</string>
     <string name="discord_activity_type_streaming_label">يبث</string>
     <string name="discord_activity_type_listening_label">يستمع إلى</string>

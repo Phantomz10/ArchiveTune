@@ -307,10 +307,10 @@
         <item quantity="one">1 minute</item>
         <item quantity="other">%d minutes</item>
     </plurals>
-    <string name="error_no_stream">No stream available</string>
+    <string name="error_no_stream" translatable="false">No stream available</string>
     <string name="error_no_internet">No network connection</string>
-    <string name="error_timeout">Timeout</string>
-    <string name="error_malformed_stream">Source error</string>
+    <string name="error_timeout" translatable="false">Timeout</string>
+    <string name="error_malformed_stream" translatable="false">Source error</string>
     <string name="error_unknown">Unknown error</string>
     <string name="action_like">Like</string>
     <string name="action_remove_like">Remove like</string>
@@ -457,7 +457,7 @@
     <string name="brightness">Brightness</string>
     <string name="custom_value">Custom value</string>
     <string name="archivetune_canvas">ArchiveTune Canvas</string>
-    <string name="archivetune_canvas_desc">Animate album artwork while playing (Powered by BetterLyrics)</string>
+    <string name="archivetune_canvas_desc">Animate album artwork while playing</string>
     <string name="player_background_style_v8_v9_desc">Unavailable with V8, V9, and V10 player styles</string>
     <string name="show_button1_description">Toggle visibility of button 1 in Discord Rich Presence</string>
     <string name="show_button2_description">Toggle visibility of button 2 in Discord Rich Presence</string>
@@ -498,15 +498,19 @@
     <string name="action_login">Log in</string>
     <string name="login">Login</string>
     <string name="not_logged_in">Not logged in</string>
-    <string name="playback_confirmation_required">Playback confirmation required</string>
-    <string name="playback_requires_youtube_music_confirmation">Confirm playback in YouTube Music, then return to ArchiveTune.</string>
-    <string name="playback_login_refresh_required">Refresh YouTube Music login</string>
-    <string name="playback_requires_youtube_music_login_refresh">Refresh your YouTube Music login, then return to ArchiveTune.</string>
-    <string name="playback_error_app_version">App version: %1$s (%2$d)</string>
-    <string name="playback_error_code">Code</string>
-    <string name="playback_error_http">HTTP</string>
-    <string name="playback_error_message">Message</string>
-    <string name="playback_error_cause">Cause</string>
+    <string name="playback_confirmation_required" translatable="false">Playback confirmation required</string>
+    <string name="playback_requires_youtube_music_confirmation" translatable="false">Confirm playback in YouTube Music, then return to ArchiveTune.</string>
+    <string name="playback_login_refresh_required" translatable="false">Refresh YouTube Music login</string>
+    <string name="playback_requires_youtube_music_login_refresh" translatable="false">Refresh your YouTube Music login, then return to ArchiveTune.</string>
+    <string name="playback_error_unknown" translatable="false">Unknown error</string>
+    <string name="playback_error_no_internet" translatable="false">No network connection</string>
+    <string name="playback_error_details" translatable="false">Details</string>
+    <string name="playback_error_reporting_hint">Before reporting this issue in the support server or group, update to the latest nightly or artifact build and try again.</string>
+    <string name="playback_error_app_version" translatable="false">App version: %1$s (%2$d)</string>
+    <string name="playback_error_code" translatable="false">Code</string>
+    <string name="playback_error_http" translatable="false">HTTP</string>
+    <string name="playback_error_message" translatable="false">Message</string>
+    <string name="playback_error_cause" translatable="false">Cause</string>
     <string name="content_language">Default content language</string>
     <string name="content_country">Default content country</string>
     <string name="system_default">System default</string>
@@ -539,6 +543,12 @@
     <string name="enable_simpmusic_lyrics">Enable SimpMusic lyrics</string>
     <string name="enable_megalobiz_lyrics">Enable Megalobiz lyrics</string>
     <string name="enable_paxsenix_lyrics">Enable Paxsenix lyrics</string>
+    <string name="paxsenix_api_key">Paxsenix API key</string>
+    <string name="paxsenix_api_key_configured">Configured</string>
+    <string name="paxsenix_api_key_missing">Required for authenticated Paxsenix requests</string>
+    <string name="paxsenix_apple_music">Paxsenix: Apple Music</string>
+    <string name="paxsenix_spotify">Paxsenix: Spotify</string>
+    <string name="paxsenix_musixmatch">Paxsenix: Musixmatch</string>
     <string name="player_and_audio">Player and audio</string>
     <string name="audio_quality">Audio quality</string>
     <string name="audio_quality_auto">Auto</string>
@@ -677,6 +687,11 @@
     <string name="pause_listen_history">Pause listen history</string>
     <string name="clear_listen_history">Clear listen history</string>
     <string name="clear_listen_history_confirm">Are you sure you want to clear all listen history?</string>
+    <string name="reset_listening_stats">Reset listening stats</string>
+    <string name="reset_listening_stats_confirm">Reset all listening stats on this device? This deletes listening history, play counts, and listening time. Your library, playlists, and downloads will be kept. This cannot be undone.</string>
+    <string name="reset_listening_stats_progress">Resetting listening stats…</string>
+    <string name="reset_listening_stats_success">Listening stats reset</string>
+    <string name="reset_listening_stats_error">Could not reset listening stats. Try again.</string>
     <string name="search_history">Search history</string>
     <string name="pause_search_history">Pause search history</string>
     <string name="clear_search_history">Clear search history</string>
@@ -789,14 +804,6 @@
     <string name="discord_presence_do_not_disturb">Do Not Disturb</string>
     <string name="discord_presence_idle">Idle</string>
     <string name="discord_presence_streaming">Streaming</string>
-    <string name="discord_platform_desktop">Desktop</string>
-    <string name="discord_platform_xbox">Xbox</string>
-    <string name="discord_platform_samsung">Samsung</string>
-    <string name="discord_platform_ios">iOS</string>
-    <string name="discord_platform_android">Android</string>
-    <string name="discord_platform_embedded">Embedded</string>
-    <string name="discord_platform_ps4">PS4</string>
-    <string name="discord_platform_ps5">PS5</string>
     <string name="discord_activity_type_playing_label">Playing</string>
     <string name="discord_activity_type_streaming_label">Streaming</string>
     <string name="discord_activity_type_listening_label">Listening</string>
@@ -805,7 +812,6 @@
     <string name="discord_image_album_artwork">Album artwork</string>
     <string name="discord_image_artist_artwork">Artist artwork</string>
     <string name="activity_status">Activity Status</string>
-    <string name="platform_status">Platform</string>
     <string name="translator_options">Translator Options</string>
     <string name="enable_translator">Enable Translator</string>
     <string name="enable_translator_desc">Translate selected fields before sending to Discord RPC</string>

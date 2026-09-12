@@ -1301,6 +1301,18 @@ interface DatabaseDao {
     )
 
     @Query(
+        """
+        UPDATE playlist SET thumbnailUrl = :thumbnailUrl
+        WHERE browseId = :browseId AND thumbnailUrl = :previousThumbnailUrl
+        """,
+    )
+    fun refreshPlaylistThumbnail(
+        browseId: String,
+        previousThumbnailUrl: String,
+        thumbnailUrl: String,
+    )
+
+    @Query(
         "UPDATE song SET liked = 0, likedDate = NULL, inLibrary = NULL WHERE isLocal = 0 AND (liked = 1 OR inLibrary IS NOT NULL)",
     )
     fun clearRemoteSongLibraryState()
@@ -1564,6 +1576,12 @@ interface DatabaseDao {
     @Transaction
     @Query("DELETE FROM event")
     fun clearListenHistory()
+
+    @Query("UPDATE song SET totalPlayTime = 0 WHERE totalPlayTime != 0")
+    suspend fun resetTotalPlayTime()
+
+    @Query("DELETE FROM playCount")
+    suspend fun clearPlayCounts()
 
     @Transaction
     @Query("DELETE FROM event WHERE id IN (:eventIds)")

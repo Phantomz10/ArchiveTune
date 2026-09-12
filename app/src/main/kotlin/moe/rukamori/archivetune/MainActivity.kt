@@ -619,15 +619,16 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val channelString = withContext(Dispatchers.IO) { dataStore.data.first()[UpdateChannelKey] }
                     val actualChannel = UpdateChannel.fromStoredName(channelString, defaultUpdateChannel)
-                    val versionResult =
-                        when (actualChannel) {
-                            UpdateChannel.ARTIFACT -> Updater.getLatestCanaryVersionName()
-                            UpdateChannel.STABLE -> Updater.getLatestVersionName()
-                        }
-                    versionResult.onSuccess {
-                        if (Updater.isUpdateAvailable(it, BuildConfig.VERSION_NAME)) {
-                            latestUpdateChannel = actualChannel
-                            latestVersionName = it
+                    if (actualChannel != UpdateChannel.ARTIFACT) {
+                        val versionResult =
+                            when (actualChannel) {
+                                UpdateChannel.STABLE -> Updater.getLatestVersionName()
+                            }
+                        versionResult.onSuccess {
+                            if (Updater.isUpdateAvailable(it, BuildConfig.VERSION_NAME)) {
+                                latestUpdateChannel = actualChannel
+                                latestVersionName = it
+                            }
                         }
                     }
                 }
@@ -721,12 +722,13 @@ class MainActivity : ComponentActivity() {
                 if (
                     BuildConfig.UPDATER_AVAILABLE &&
                     latestUpdateChannel == updateChannel &&
+                    latestUpdateChannel != UpdateChannel.ARTIFACT &&
                     Updater.isUpdateAvailable(latestVersionName, BuildConfig.VERSION_NAME)
                 ) {
                     val releaseNotesResult =
                         when (latestUpdateChannel) {
-                            UpdateChannel.ARTIFACT -> Updater.getLatestCanaryReleaseNotes()
                             UpdateChannel.STABLE -> Updater.getLatestReleaseNotes()
+                            else -> return@LaunchedEffect
                         }
                     releaseNotesResult
                         .onSuccess {
@@ -1044,11 +1046,12 @@ class MainActivity : ComponentActivity() {
                     val floatingBarsBottomPadding = NavigationBarBottomPadding
                     val navVisibleHeight = NavigationBarHeight
 
-                    val bottomNavigationBarHeight by animateDpAsState(
+                    val bottomNavigationBarHeightState = animateDpAsState(
                         targetValue = if (shouldShowNavigationBar && !useRail) navVisibleHeight else 0.dp,
                         animationSpec = if (disableAnimations) snap() else NavigationBarAnimationSpec,
                         label = "",
                     )
+                    val bottomNavigationBarHeight by bottomNavigationBarHeightState
 
                     val playerBottomSheetState =
                         rememberBottomSheetState(
@@ -1879,6 +1882,7 @@ class MainActivity : ComponentActivity() {
                                                             if (
                                                                 BuildConfig.UPDATER_AVAILABLE &&
                                                                 latestUpdateChannel == updateChannel &&
+                                                                latestUpdateChannel != UpdateChannel.ARTIFACT &&
                                                                 Updater.isUpdateAvailable(latestVersionName, BuildConfig.VERSION_NAME)
                                                             ) {
                                                                 Badge()
@@ -2127,16 +2131,43 @@ class MainActivity : ComponentActivity() {
                                 },
                                 bottomBar = {
                                     Box {
-                                        val areBottomBarsPaired =
-                                            shouldShowNavigationBar &&
-                                                !useRail &&
-                                                playerBottomSheetState.isCollapsed
+                                        val showNavigationBarState = rememberUpdatedState(shouldShowNavigationBar)
+                                        val useRailState = rememberUpdatedState(useRail)
+                                        val navigationProximityProvider: () -> Float =
+                                            remember(playerBottomSheetState, bottomNavigationBarHeightState) {
+                                                {
+                                                    val navRatio =
+                                                        (bottomNavigationBarHeightState.value / navVisibleHeight).coerceIn(0f, 1f)
+                                                    val isNavTransitioning =
+                                                        bottomNavigationBarHeightState.value > 0.dp &&
+                                                            bottomNavigationBarHeightState.value < navVisibleHeight
+                                                    val morphThreshold = MiniPlayerHeight + MiniPlayerBottomSpacing
+                                                    val swipeDeviation =
+                                                        if (isNavTransitioning && playerBottomSheetState.targetAnchor == COLLAPSED_ANCHOR) {
+                                                            0.dp
+                                                        } else {
+                                                            playerBottomSheetState.value.let { v ->
+                                                                if (v < playerBottomSheetState.collapsedBound) {
+                                                                    playerBottomSheetState.collapsedBound - v
+                                                                } else {
+                                                                    v - playerBottomSheetState.collapsedBound
+                                                                }
+                                                            }
+                                                        }
+                                                    val sheetPresence = (1f - (swipeDeviation / morphThreshold)).coerceIn(0f, 1f)
+                                                    if (!showNavigationBarState.value || useRailState.value) {
+                                                        0f
+                                                    } else {
+                                                        navRatio * sheetPresence
+                                                    }
+                                                }
+                                            }
 
                                         BottomSheetPlayer(
                                             state = playerBottomSheetState,
                                             navController = navController,
                                             pureBlack = pureBlack,
-                                            isMiniPlayerPairedWithNavigation = areBottomBarsPaired,
+                                            navigationProximityProvider = navigationProximityProvider,
                                         )
 
                                         if (useRail) return@Box
@@ -2179,7 +2210,7 @@ class MainActivity : ComponentActivity() {
                                             FloatingNavigationToolbar(
                                                 items = navigationItems,
                                                 pureBlack = pureBlack,
-                                                isPairedWithMiniPlayer = areBottomBarsPaired,
+                                                miniPlayerProximityProvider = navigationProximityProvider,
                                                 modifier =
                                                     Modifier
                                                         .align(Alignment.BottomCenter)

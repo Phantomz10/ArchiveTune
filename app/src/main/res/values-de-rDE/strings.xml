@@ -142,9 +142,7 @@
         <item quantity="one">1 Minute</item>
         <item quantity="other">%d Minuten</item>
     </plurals>
-    <string name="error_no_stream">Kein Stream verfügbar</string>
     <string name="error_no_internet">Keine Netzwerkverbindung</string>
-    <string name="error_timeout">Time-out</string>
     <string name="error_unknown">Unbekannter Fehler</string>
     <string name="action_like">Gefällt mir</string>
     <string name="action_remove_like">Gefällt-mir entfernen</string>
@@ -356,7 +354,6 @@
     <string name="small_image">Kleines Bild</string>
     <string name="small_image_custom_url">Benutzerdefinierte URL für kleines Bild</string>
     <string name="activity_status">Aktivitätsstatus</string>
-    <string name="platform_status">Plattform</string>
     <string name="translator_options">Übersetzeroptionen</string>
     <string name="enable_translator">Übersetzer aktivieren</string>
     <string name="enable_translator_desc">Ausgewählte Felder vor dem Senden an Discord RPC übersetzen</string>
@@ -482,9 +479,8 @@
     <string name="sort_order_ascending">Aufsteigend</string>
     <string name="sort_order_descending">Absteigend</string>
     <string name="no_matching_playlists">Keine übereinstimmende Playlist</string>
-    <string name="error_malformed_stream">Quellenfehler</string>
     <string name="archivetune_canvas">ArchiveTune-Canvas</string>
-    <string name="archivetune_canvas_desc">Albumcover animieren während des Abpielens (Unterstützt von BetterLyrics)</string>
+    <string name="archivetune_canvas_desc">Albumcover animieren während des Abpielens</string>
     <string name="player_background_style_v8_v9_desc">Nicht verfügbar mit V8 und V9 Player-Stil</string>
     <string name="disable_animations">Animationen deaktivieren</string>
     <string name="disable_animations_desc">Die meisten Appanimationen deaktivieren. Für Low-end-Geräte empfohlen</string>
@@ -531,10 +527,6 @@
     <string name="lyrics_mode_enhanced">Erweitert</string>
     <string name="lyrics_animation_style_v2_only">Nur verfügbar in V2 Songtextmodus</string>
     <string name="lyrics_line_spacing">Songtext Zeilenabstand</string>
-    <string name="playback_confirmation_required">Wiedergabebestätigung erforderlich</string>
-    <string name="playback_requires_youtube_music_confirmation">Wiedergabe in YouTube Music bestätigten, dann zu ArchiveTune zurückkehren.</string>
-    <string name="playback_login_refresh_required">Erneuere YouTube Music Anmeldung</string>
-    <string name="playback_requires_youtube_music_login_refresh">Erneuere YouTube Music Anmeldung, dann zu ArchiveTune zurückkehren.</string>
     <string name="internet">Internet</string>
     <string name="internet_warning_title">Sicherheits- und Nutzungswarnung</string>
     <string name="dns_over_https">DNS über HTTPS</string>
@@ -601,14 +593,6 @@
     <string name="discord_presence_do_not_disturb">Nicht stören</string>
     <string name="discord_presence_idle">Inaktiv</string>
     <string name="discord_presence_streaming">Streamt</string>
-    <string name="discord_platform_desktop">Desktop</string>
-    <string name="discord_platform_xbox">Xbox</string>
-    <string name="discord_platform_samsung">Samsung</string>
-    <string name="discord_platform_ios">iOS</string>
-    <string name="discord_platform_android">Android</string>
-    <string name="discord_platform_embedded">Eingebettet</string>
-    <string name="discord_platform_ps4">PS4</string>
-    <string name="discord_platform_ps5">PS5</string>
     <string name="discord_activity_type_playing_label">Spielt</string>
     <string name="discord_activity_type_streaming_label">Streamt</string>
     <string name="support_development_title">Entwicklung unterstützen</string>
@@ -776,8 +760,6 @@
     <string name="font_preference">Schriftart</string>
     <string name="font_preference_default">Standard</string>
     <string name="font_preference_system">System</string>
-    <string name="playback_error_http">HTTP</string>
-    <string name="playback_error_message">Nachricht</string>
     <string name="device_mute_recovery_volume_disabled">Deaktiviert</string>
     <string name="account_integrations_summary">Discord, Last.fm, Libre.fm, ListenBrainz</string>
     <string name="lastfm_provider_lastfm">Last.fm</string>
@@ -819,8 +801,6 @@
     <string name="custom_font_invalid">Wähle eine .ttf-Schriftartdatei</string>
     <string name="force_high_refresh_rate">Hohe Bildwiederholrate erzwingen</string>
     <string name="max_supported_refresh_rate">Max. unterstützt: %1$d Hz</string>
-    <string name="playback_error_code">Code</string>
-    <string name="playback_error_cause">Ursache</string>
     <string name="device_volume_zero_playback_paused">Wiedergabe pausiert da die Lautstärke 0 ist. Erhöhe die Lautstärke, um die Wiedergabe fortzusetzen.</string>
     <string name="paxsenix_status_degraded">Degradiert</string>
     <string name="paxsenix_status_down">Nicht verfügbar</string>
