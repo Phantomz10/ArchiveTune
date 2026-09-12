@@ -56,6 +56,7 @@ import moe.rukamori.archivetune.constants.HistoryDuration
 import moe.rukamori.archivetune.constants.PauseOnDeviceMuteKey
 import moe.rukamori.archivetune.constants.PermanentShuffleKey
 import moe.rukamori.archivetune.constants.PersistentQueueKey
+import moe.rukamori.archivetune.constants.PreventDuplicateTracksInQueueKey
 import moe.rukamori.archivetune.constants.SeekExtraSeconds
 import moe.rukamori.archivetune.constants.SkipSilenceKey
 import moe.rukamori.archivetune.constants.StopMusicOnTaskClearKey
@@ -157,6 +158,11 @@ fun PlayerSettings(navController: NavController) {
     val (permanentShuffle, onPermanentShuffleChange) =
         rememberPreference(
             PermanentShuffleKey,
+            defaultValue = false,
+        )
+    val (preventDuplicateTracksInQueue, onPreventDuplicateTracksInQueueChange) =
+        rememberPreference(
+            PreventDuplicateTracksInQueueKey,
             defaultValue = false,
         )
     val (skipSilence, onSkipSilenceChange) =
@@ -510,6 +516,16 @@ fun PlayerSettings(navController: NavController) {
                         icon = { Icon(painterResource(R.drawable.shuffle), null) },
                         checked = permanentShuffle,
                         onCheckedChange = onPermanentShuffleChange,
+                    )
+                }
+
+                item {
+                    SwitchPreference(
+                        title = { Text(stringResource(R.string.prevent_duplicate_tracks_in_queue)) },
+                        description = stringResource(R.string.prevent_duplicate_tracks_in_queue_desc),
+                        icon = { Icon(painterResource(R.drawable.queue_music), null) },
+                        checked = preventDuplicateTracksInQueue,
+                        onCheckedChange = onPreventDuplicateTracksInQueueChange,
                     )
                 }
 
